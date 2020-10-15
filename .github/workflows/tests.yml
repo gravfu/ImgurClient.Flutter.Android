@@ -24,4 +24,9 @@ jobs:
           flutter-version: '1.22.1'
       - run: flutter pub get
       - run: flutter test
-      - run: flutter build apk
+      - run: flutter build apk --debug --split-per-abi
+      - name: COPY Release APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-release.apk
+          path: ./build/app/outputs/apk/release/app-release.apk
