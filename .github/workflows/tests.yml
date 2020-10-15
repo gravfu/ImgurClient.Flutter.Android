@@ -22,9 +22,9 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '1.22.1'
-      - run: flutter pub get
-      - run: flutter test
-      - run: flutter build apk --debug --split-per-abi
+      - run: cd epicture && flutter pub get
+      - run: cd epicture && flutter test
+      - run: cd epicture && flutter build apk --debug --split-per-abi
       - name: COPY Release APK
         uses: actions/upload-artifact@v2
         with:
