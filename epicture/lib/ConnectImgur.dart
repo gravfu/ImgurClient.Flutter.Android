@@ -65,25 +65,20 @@ class _MyAppState extends State<ConnectApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Web Auth example'),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('Status: $_status\n'),
-              const SizedBox(height: 80),
-              RaisedButton(
-                child: Text('Authenticate'),
-                onPressed: () {
-                  this.authenticate();
-                },
-              ),
-            ],
-          ),
+    return Center(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('Status: $_status\n'),
+            const SizedBox(height: 80),
+            RaisedButton(
+              child: Text('Authenticate'),
+              onPressed: () {
+                this.authenticate();
+              },
+            ),
+          ],
         ),
       ),
     );
