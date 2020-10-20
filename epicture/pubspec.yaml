@@ -34,6 +34,12 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    transparent_image:
+    http:
+    oauth2:
+    uni_links:
+    url_launcher:
+    flutter_web_auth:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
