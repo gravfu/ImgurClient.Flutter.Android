@@ -41,6 +41,7 @@ dev_dependencies:
   uni_links:
   url_launcher:
   flutter_web_auth:
+  imgur:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

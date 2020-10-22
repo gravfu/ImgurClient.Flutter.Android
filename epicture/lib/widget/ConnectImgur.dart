@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 
-void main() => runApp(ConnectApp());
+import 'package:imgur/imgur.dart' as imgur;
 
 class ConnectApp extends StatefulWidget {
   @override
@@ -13,7 +13,6 @@ class ConnectApp extends StatefulWidget {
 class _MyAppState extends State<ConnectApp> {
   String _status = '';
   String _clientID = '6acf662630ca71d';
-  String _clientSecret = 'c9a7660d508e0722a99868baa06e4dedb4c91363';
   final _callbackUrlScheme = 'com.example.epicture://success';
 
   @override
@@ -27,6 +26,7 @@ class _MyAppState extends State<ConnectApp> {
       'client_id': _clientID,
       'redirect_uri': _callbackUrlScheme,
     });
+    String accessToken = "";
 
     try {
       final result = await FlutterWebAuth.authenticate(
@@ -38,6 +38,7 @@ class _MyAppState extends State<ConnectApp> {
         uri.queryParameters.forEach((k, v) {
           _status += '\nkey: $k - value: $v';
         });
+        accessToken = uri.queryParameters['access_token'];
         _status +=
             '\n\nGot access token: ${uri.queryParameters['access_token']}';
       });
@@ -46,6 +47,11 @@ class _MyAppState extends State<ConnectApp> {
         _status = 'Got error: $e';
       });
     }
+    final client = imgur.Imgur(imgur.Authentication.fromToken(accessToken));
+    List resp = await client.account.getImages();
+    resp.forEach((element) {
+      _status += "\n " + element.link;
+    });
   }
 
   @override

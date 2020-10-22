@@ -1,4 +1,4 @@
-import 'home.dart';
+import 'FrontPage.dart';
 //import 'ConnectImgur.dart';
 import 'package:flutter/material.dart';
 
