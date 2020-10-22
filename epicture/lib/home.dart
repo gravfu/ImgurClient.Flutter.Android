@@ -12,10 +12,7 @@ class _HomeState extends State<Home> {
   final tabs = [
     Center(child: Text("Home page")),
     ConnectApp(),
-    FadeInImage.memoryNetwork(
-      placeholder: kTransparentImage,
-      image: 'https://picsum.photos/250?image=9',
-    ),
+    Center(child: Text("My Images")),
   ];
 
   @override
