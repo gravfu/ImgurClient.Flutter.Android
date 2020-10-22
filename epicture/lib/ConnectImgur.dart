@@ -21,22 +21,7 @@ class _MyAppState extends State<ConnectApp> {
     super.initState();
   }
 
-  Iterable<RegExpMatch> decode(String decod) {
-    RegExp exp = new RegExp(r"(/([^&=]+)=([^&]*)/g)");
-    Iterable<RegExpMatch> matches = exp.allMatches(decod);
-    int matchCount = 0;
-    for (RegExpMatch match in matches) {
-      matchCount++;
-      for (int groupCt = 0; groupCt < match.groupCount; groupCt++) {
-        print(
-            "original string: '$decod', match $matchCount, group {$groupCt} = ${match.group(groupCt)}");
-      }
-    }
-    return matches;
-  }
-
   void authenticate() async {
-    final callbackUrlScheme = 'foobar';
     final url = Uri.https('api.imgur.com', '/oauth2/authorize', {
       'response_type': 'token',
       'client_id': _clientID,
@@ -45,7 +30,7 @@ class _MyAppState extends State<ConnectApp> {
 
     try {
       final result = await FlutterWebAuth.authenticate(
-          url: url.toString(), callbackUrlScheme: callbackUrlScheme);
+          url: url.toString(), callbackUrlScheme: 'com.example.epicture');
       setState(() {
         var resul2 = result.replaceAll('#', '?');
         _status = 'Got result: $resul2';
