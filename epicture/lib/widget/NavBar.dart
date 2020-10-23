@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../photoview.dart';
 import 'ConnectImgur.dart';
 
 /// This is the stateful widget that the main application instantiates.
@@ -15,10 +16,8 @@ class _NavBar extends State<NavBar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
+    //SimplePhotoView(0),
+    ScrollCardGallery(),
     ConnectApp(),
     Text(
       'Index 2: School',
