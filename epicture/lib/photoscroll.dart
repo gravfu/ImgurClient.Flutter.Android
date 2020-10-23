@@ -1,21 +1,21 @@
-//import 'dart:html';
-
-//import 'package:photo_view/photo_view.dart';
-//import 'package:photo_view/photo_view_gallery.dart';
-//import 'dart:js';
-
+//mport 'package:imgur/imgur.dart' as imgur;
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ScrollCardGallery extends StatelessWidget {
+  var imageNetList;
+
+  ScrollCardGallery(var input) {
+    this.imageNetList = input;
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
       scrollDirection: Axis.vertical,
       addAutomaticKeepAlives: true,
       children: <Widget>[
-        SimplePhotoView(0),
-        SimplePhotoView(1),
-        SimplePhotoView(2),
+        for (var i in imageNetList) SimplePhotoView(i),
       ],
     );
   }
@@ -24,16 +24,12 @@ class ScrollCardGallery extends StatelessWidget {
 // ignore: must_be_immutable
 class SimplePhotoView extends StatelessWidget {
   int index = 0;
+  var imageNetURL;
 
-  SimplePhotoView(int x) {
-    this.index = x;
+  SimplePhotoView(var input) {
+    this.imageNetURL = input;
+    debugPrint("Loaded one Image");
   }
-
-  final imageNetList = [
-    'https://i.imgur.com/RUPWLeZ.png',
-    'https://i.imgur.com/gSPz2ZM.jpg',
-    'https://i.imgur.com/zpcsV3b.jpg',
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +39,7 @@ class SimplePhotoView extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Card(
+          color: Colors.blueGrey[800],
           elevation: 5,
           margin: EdgeInsets.all(10),
           semanticContainer: true,
@@ -50,33 +47,71 @@ class SimplePhotoView extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           borderOnForeground: true,
-          child: Image.network(
-            imageNetList[0],
-            fit: BoxFit.fill,
-          ),
-        ),
-        Card(
-          elevation: 10,
-          color: Colors.grey,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.arrow_upward_rounded),
-                onPressed: () {},
+          child: Column(
+            children: [
+              Image.network(
+                imageNetURL,
+                fit: BoxFit.fill,
               ),
-              IconButton(
-                icon: Icon(Icons.arrow_downward_rounded),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: Icon(Icons.star_border_outlined),
-                onPressed: () {},
-              ),
+              UpVoteOptions(),
             ],
           ),
+        ),
+      ],
+    );
+  }
+}
+
+class UpVoteOptions extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(
+                    Icons.arrow_upward_rounded,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {},
+                ),
+                Text(
+                  "45",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(
+                    Icons.arrow_downward_rounded,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    debugPrint('Hello');
+                  },
+                ),
+                Text(
+                  "12",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.star_border_outlined,
+                color: Colors.white,
+              ),
+              onPressed: () {},
+            ),
+          ],
         ),
       ],
     );

@@ -5,6 +5,8 @@ import 'package:flutter_web_auth/flutter_web_auth.dart';
 
 import 'package:imgur/imgur.dart' as imgur;
 
+String authTokenvar = '';
+
 class ConnectApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -39,6 +41,10 @@ class _MyAppState extends State<ConnectApp> {
           _status += '\nkey: $k - value: $v';
         });
         accessToken = uri.queryParameters['access_token'];
+        debugPrint(accessToken);
+        debugPrint('Got token and applying to authTokenvar:');
+        authTokenvar = accessToken;
+        debugPrint(authTokenvar);
         _status +=
             '\n\nGot access token: ${uri.queryParameters['access_token']}';
       });
