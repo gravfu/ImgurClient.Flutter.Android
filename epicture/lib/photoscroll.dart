@@ -1,16 +1,44 @@
 //mport 'package:imgur/imgur.dart' as imgur;
 import 'package:flutter/material.dart';
+import 'widget/ConnectImgur.dart';
+import 'package:imgur/imgur.dart' as imgur;
 
 // ignore: must_be_immutable
 class ScrollCardGallery extends StatelessWidget {
-  var imageNetList;
+  var request;
+  List imageNetList;
+  int _selectedIndex = 0;
 
-  ScrollCardGallery(var input) {
-    this.imageNetList = input;
+  ScrollCardGallery() {
+    getImgurImages();
   }
+
+  Future<List<imgur.Image>> imgurImageList;
+
+  void getImgurImages() async {
+    debugPrint("Fetching images with token : ");
+    debugPrint(authTokenvar);
+    final client = imgur.Imgur(imgur.Authentication.fromToken(authTokenvar));
+    imageNetList = await client.account.getImages();
+    //imageNetList.forEach((element) {
+    //print(element.link.toString());
+    //});
+    debugPrint('Successfully got Images');
+  }
+
+  /*
+  void getImages(int index) {
+    debugPrint('Selected tab:');
+    debugPrint(index.toString());
+    debugPrint('Token is currently:');
+    debugPrint(authTokenvar);
+    _selectedIndex = index;
+    if (_selectedIndex == 0) imgurImageList = getImgurImages();
+  } */
 
   @override
   Widget build(BuildContext context) {
+    getImgurImages();
     return ListView(
       scrollDirection: Axis.vertical,
       addAutomaticKeepAlives: true,
@@ -24,10 +52,10 @@ class ScrollCardGallery extends StatelessWidget {
 // ignore: must_be_immutable
 class SimplePhotoView extends StatelessWidget {
   int index = 0;
-  var imageNetURL;
+  var imageNet;
 
   SimplePhotoView(var input) {
-    this.imageNetURL = input;
+    this.imageNet = input;
     debugPrint("Loaded one Image");
   }
 
@@ -50,7 +78,7 @@ class SimplePhotoView extends StatelessWidget {
           child: Column(
             children: [
               Image.network(
-                imageNetURL,
+                imageNet.link,
                 fit: BoxFit.fill,
               ),
               UpVoteOptions(),

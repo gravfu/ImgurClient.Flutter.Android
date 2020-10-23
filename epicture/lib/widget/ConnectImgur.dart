@@ -6,6 +6,7 @@ import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:imgur/imgur.dart' as imgur;
 
 String authTokenvar = '';
+bool isAuthentified = false;
 
 class ConnectApp extends StatefulWidget {
   @override
@@ -47,6 +48,8 @@ class _MyAppState extends State<ConnectApp> {
         debugPrint(authTokenvar);
         _status +=
             '\n\nGot access token: ${uri.queryParameters['access_token']}';
+        if ((uri.queryParameters['access_token'].isNotEmpty))
+          isAuthentified = true;
       });
     } on PlatformException catch (e) {
       setState(() {

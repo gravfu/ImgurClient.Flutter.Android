@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:imgur/imgur.dart' as imgur;
 import '../photoscroll.dart';
 import 'ConnectImgur.dart';
 
@@ -26,23 +25,13 @@ var hardCodedIDsTestList = [
 /// This is the private State class that goes with MyStatefulWidget.
 class _NavBar extends State<NavBar> {
   int _selectedIndex = 0;
-  Future<List<imgur.Image>> imgurImageList;
 
-  var client;
   var resp;
-
-  Future<List<imgur.Image>> getImgurImages() async {
-    debugPrint("Fetching images with token : ");
-    debugPrint(authTokenvar);
-    client = imgur.Imgur(imgur.Authentication.fromToken(authTokenvar));
-    debugPrint('Successfully got Images');
-    return resp = await client.account.getImages();
-  }
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   List<Widget> _widgetOptions = <Widget>[
-    ScrollCardGallery(hardCodedURLTestList),
+    ScrollCardGallery(),
     ConnectApp(),
     Text(
       'Index 2: School',
@@ -57,7 +46,6 @@ class _NavBar extends State<NavBar> {
       style: optionStyle,
     ),
   ];
-
   void _onItemTapped(int index) {
     setState(() {
       debugPrint('Selected tab:');
@@ -65,7 +53,6 @@ class _NavBar extends State<NavBar> {
       debugPrint('Token is currently:');
       debugPrint(authTokenvar);
       _selectedIndex = index;
-      if (_selectedIndex == 0) imgurImageList = getImgurImages();
     });
   }
 
