@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../photoscroll.dart';
+import '../photoscroll2.dart';
 import 'ConnectImgur.dart';
 
 /// This is the stateful widget that the main application instantiates.
