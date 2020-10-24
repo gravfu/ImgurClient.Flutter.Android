@@ -18,8 +18,6 @@ class ScrollCardGallery extends StatefulWidget {
   @override
   _ScrollCardGallery createState() => _ScrollCardGallery();
 }
-
-final client = imgur.Imgur(imgur.Authentication.fromToken(authTokenvar));
 /*
 List<Image> getImgurImages() async {
   debugPrint("Fetching images with token : ");
@@ -37,7 +35,7 @@ List<Image> getImgurImages() async {
 class _ScrollCardGallery extends State<ScrollCardGallery> {
   Widget build(BuildContext context) {
     return FutureBuilder<List<imgur.Image>>(
-      future: client.account.getImages(),
+      future: clientID.account.getImages(),
       builder:
           (BuildContext context, AsyncSnapshot<List<imgur.Image>> snapshot) {
         switch (snapshot.connectionState) {

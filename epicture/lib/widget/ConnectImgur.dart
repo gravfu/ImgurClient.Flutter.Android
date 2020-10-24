@@ -7,6 +7,7 @@ import 'package:imgur/imgur.dart' as imgur;
 
 String authTokenvar = '';
 bool isAuthentified = false;
+imgur.Imgur clientID;
 
 class ConnectApp extends StatefulWidget {
   @override
@@ -48,8 +49,10 @@ class _MyAppState extends State<ConnectApp> {
         debugPrint(authTokenvar);
         _status +=
             '\n\nGot access token: ${uri.queryParameters['access_token']}';
-        if ((uri.queryParameters['access_token'].isNotEmpty))
+        if ((uri.queryParameters['access_token'].isNotEmpty)) {
           isAuthentified = true;
+          clientID = imgur.Imgur(imgur.Authentication.fromToken(authTokenvar));
+        }
       });
     } on PlatformException catch (e) {
       setState(() {
