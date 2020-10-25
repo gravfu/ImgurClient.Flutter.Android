@@ -22,6 +22,12 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '1.22.1'
-      - run: flutter pub get
-      - run: flutter test
-      - run: flutter build apk
+      - run: cd epicture && flutter pub get
+      - run: cd epicture && flutter build apk --debug --split-per-abi
+        if: ${{ always() }}
+      - name: COPY Release APK
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-release.apk
+          path: ./epicture/build/app/outputs/apk/debug/*.apk
