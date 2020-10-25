@@ -56,7 +56,8 @@ class _MyAppState extends State<ConnectApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Material(
+      type: MaterialType.transparency,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
