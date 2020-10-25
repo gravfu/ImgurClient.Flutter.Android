@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:imgur/imgur.dart' as imgur;
 
-// ignore: must_be_immutable
 class SimplePhotoView extends StatelessWidget {
   int index = 0;
   bool withLikes;
@@ -29,6 +29,7 @@ class SimplePhotoView extends StatelessWidget {
           borderOnForeground: true,
           child: Column(
             children: <Widget>[
+              Text(imageNet.title),
               Image.network(
                 imageNet.link,
                 fit: BoxFit.fill,
@@ -37,6 +38,47 @@ class SimplePhotoView extends StatelessWidget {
                 UpVoteOptions(imageNet)
               else
                 UpVoteOptions2(imageNet),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class SimplePhotoViewAlbumGalleryImage extends StatelessWidget {
+  int index = 0;
+  imgur.GalleryAlbumImage imageNet;
+
+  SimplePhotoViewAlbumGalleryImage(var input) {
+    this.imageNet = input;
+    debugPrint("Loaded one Image");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Card(
+          color: Colors.blueGrey[800],
+          elevation: 5,
+          margin: EdgeInsets.all(10),
+          semanticContainer: true,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+          borderOnForeground: true,
+          child: Column(
+            children: <Widget>[
+              Text(imageNet.title),
+              Image.network(
+                imageNet.link,
+                fit: BoxFit.fill,
+              ),
+              UpVoteOptions(imageNet),
             ],
           ),
         ),
