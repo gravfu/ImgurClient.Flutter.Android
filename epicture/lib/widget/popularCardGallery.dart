@@ -41,7 +41,7 @@ class _PopularCardGallery extends State<PopularCardGallery> {
                 children: <Widget>[
                   for (var i in snapshot.data)
                     if (i.images != null && i.images[0].type == "image/png")
-                      SimplePhotoView(i.images[0])
+                      SimplePhotoView(i.images[0], false)
                 ],
               );
         }
