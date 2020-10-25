@@ -23,7 +23,7 @@ jobs:
         with:
           flutter-version: '1.22.1'
       - run: cd epicture && flutter pub get
-      - run: cd epicture && flutter build apk --debug --split-per-abi
+      - run: cd epicture && flutter build apk --split-per-abi
         if: ${{ always() }}
       - name: COPY Release APK
         if: ${{ always() }}
