@@ -39,7 +39,7 @@ class _PopularCardGallery extends State<PopularCardGallery> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   AppBar(
-                    title: Text("Most Popular",
+                    title: Text("Most Viral",
                         style: TextStyle(fontFamily: 'Ubuntu')),
                     backgroundColor: Colors.blueGrey,
                   ),

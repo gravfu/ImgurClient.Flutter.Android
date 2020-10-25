@@ -11,6 +11,7 @@ import 'package:epicture/widget/photoCard.dart';
 import 'package:flutter/material.dart';
 import 'package:imgur/imgur.dart' as imgur;
 import '../pages/ConnectImgur.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class ProfileCardGallery extends StatefulWidget {
@@ -35,15 +36,47 @@ class _ProfileCardGallery extends State<ProfileCardGallery> {
             if (snapshot.hasError)
               return new Text('Error: ${snapshot.error}');
             else
-              return ListView(
-                scrollDirection: Axis.vertical,
-                addAutomaticKeepAlives: true,
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  for (var i in snapshot.data)
-                    if (i.type == "image/png" ||
-                        i.type == "image/jpeg" ||
-                        i.type == "video/mp4")
-                      SimplePhotoViewProfile(i),
+                  AppBar(
+                    backgroundColor: Colors.blueGrey,
+                    title: Text(
+                      "My Images",
+                      style:
+                          TextStyle(color: Colors.black, fontFamily: "Ubuntu"),
+                    ),
+                    actions: [
+                      FlatButton(
+                        onPressed: () async {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          authTokenvar = null;
+                          prefs.remove("clientID");
+                          Navigator.of(context).pushReplacementNamed('/login');
+                        },
+                        child: Column(
+                          children: [
+                            Icon(Icons.account_circle_sharp),
+                            Text('Log out'),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  new Expanded(
+                    child: ListView(
+                      scrollDirection: Axis.vertical,
+                      addAutomaticKeepAlives: true,
+                      children: <Widget>[
+                        for (var i in snapshot.data)
+                          if (i.type == "image/png" ||
+                              i.type == "image/jpeg" ||
+                              i.type == "video/mp4")
+                            SimplePhotoViewProfile(i),
+                      ],
+                    ),
+                  ),
                 ],
               );
         }
