@@ -23,11 +23,11 @@ jobs:
         with:
           flutter-version: '1.22.1'
       - run: cd epicture && flutter pub get
-      - run: cd epicture && flutter build apk --debug --split-per-abi
+      - run: cd epicture && flutter build apk --split-per-abi
         if: ${{ always() }}
       - name: COPY Release APK
         if: ${{ always() }}
         uses: actions/upload-artifact@v2
         with:
           name: app-release.apk
-          path: ./epicture/build/app/outputs/apk/debug/*.apk
+          path: ./epicture/build/app/outputs/apk/release/*.apk
