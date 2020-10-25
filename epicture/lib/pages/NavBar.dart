@@ -5,6 +5,7 @@ import '../widget/profileCardGallery.dart';
 import '../widget/LikesCard.dart';
 import 'ConnectImgur.dart';
 import 'package:epicture/widget/UploadCart.dart';
+import 'package:epicture/widget/SearchCart.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class NavBar extends StatefulWidget {
@@ -24,10 +25,7 @@ class _NavBar extends State<NavBar> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   List<Widget> _widgetOptions = <Widget>[
     PopularCardGallery(),
-    Text(
-      'Index 2: Searsh',
-      style: optionStyle,
-    ),
+    SearchCart(),
     UploadPage(),
     LikesCardGallery(),
     ProfileCardGallery(),
