@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/foundation.dart';
+//import 'package:flutter/foundation.dart';
 
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 
@@ -16,6 +16,7 @@ class ConnectApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<ConnectApp> {
+  // ignore: unused_field
   String _status = '';
   String _clientID = '6acf662630ca71d';
   final _callbackUrlScheme = 'com.example.epicture://success';
@@ -62,23 +63,31 @@ class _MyAppState extends State<ConnectApp> {
               title: Text("Login Page"),
               backgroundColor: Colors.blueGrey,
             ),
-            Icon(Icons.account_box_outlined),
+            Icon(
+              Icons.browser_not_supported,
+              size: 60,
+              color: Colors.white,
+            ),
             Text(
               'You are not logged in :',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w100,
+                fontSize: 35,
+              ),
             ),
             const SizedBox(height: 80),
-            Card(
-              color: Colors.teal[400],
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  TextButton(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Card(
+                  color: Colors.teal[400],
+                  child: TextButton(
                     child: Text(
                       'Log In',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 30,
+                        fontSize: 25,
                         fontWeight: FontWeight.w200,
                       ),
                     ),
@@ -86,10 +95,18 @@ class _MyAppState extends State<ConnectApp> {
                       this.authenticate();
                     },
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             Padding(padding: EdgeInsets.all(16.0)),
+            Text(
+              'By logging in you accept the Terms & conditions of imgur found at https://imgur.com/tos',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w100,
+                fontSize: 15,
+              ),
+            ),
           ],
         ),
       ),

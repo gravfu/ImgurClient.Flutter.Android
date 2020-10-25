@@ -34,7 +34,9 @@ class _UploadPage extends State<UploadPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Image Picker Example'),
+        backgroundColor: Colors.blueGrey,
       ),
+      backgroundColor: Colors.grey[850],
       body: Center(
         child: _image == null ? Text('No image selected.') : Image.file(_image),
       ),

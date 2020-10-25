@@ -1,7 +1,7 @@
 import 'pages/NavBar.dart';
 import 'pages/ConnectImgur.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
+//import 'package:flutter/foundation.dart';
 
 class MyApp extends StatelessWidget {
   @override
