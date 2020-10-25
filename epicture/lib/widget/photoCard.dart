@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:imgur/imgur.dart' as imgur;
 
-class SimplePhotoView extends StatelessWidget {
+// ignore: must_be_immutable
+class SimplePhotoViewProfile extends StatelessWidget {
   int index = 0;
-  bool withLikes;
   var imageNet;
 
-  SimplePhotoView(var input, bool _withLikes) {
+  SimplePhotoViewProfile(var input) {
     this.imageNet = input;
-    this.withLikes = _withLikes;
     debugPrint("Loaded one Image");
   }
 
@@ -34,10 +33,7 @@ class SimplePhotoView extends StatelessWidget {
                 imageNet.link,
                 fit: BoxFit.fill,
               ),
-              if (withLikes)
-                UpVoteOptions(imageNet)
-              else
-                UpVoteOptions2(imageNet),
+              UpVoteOptionsNoLikes(imageNet)
             ],
           ),
         ),
@@ -73,12 +69,16 @@ class SimplePhotoViewAlbumGalleryImage extends StatelessWidget {
           borderOnForeground: true,
           child: Column(
             children: <Widget>[
-              Text(imageNet.title),
+              Text(
+                imageNet.title,
+                style: TextStyle(fontFamily: 'Ubuntu', color: Colors.white),
+              ),
+              //Pad
               Image.network(
                 imageNet.images[0].link,
                 fit: BoxFit.fill,
               ),
-              UpVoteOptions(imageNet),
+              UpVoteOptionsLikes(imageNet),
             ],
           ),
         ),
@@ -88,16 +88,17 @@ class SimplePhotoViewAlbumGalleryImage extends StatelessWidget {
 }
 
 // ignore: must_be_immutable
-class UpVoteOptions extends StatelessWidget {
+class UpVoteOptionsLikes extends StatelessWidget {
   var imgurImage;
   int upvotes;
   int downvotes;
   int views;
   //bool _isupvoted = false;
   //bool _isdownvoted = false;
+  // ignore: unused_field
   bool _isfav;
 
-  UpVoteOptions(var input) {
+  UpVoteOptionsLikes(var input) {
     this.imgurImage = input;
     this.upvotes = input.ups;
     this.downvotes = input.downs;
@@ -155,16 +156,7 @@ class UpVoteOptions extends StatelessWidget {
                 ),
               ],
             ),
-            IconButton(
-              icon: Icon(
-                Icons.star_border_outlined,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                _isfav = !_isfav;
-                debugPrint('Starred');
-              },
-            ),
+            FavButton(),
           ],
         ),
       ],
@@ -173,7 +165,7 @@ class UpVoteOptions extends StatelessWidget {
 }
 
 // ignore: must_be_immutable
-class UpVoteOptions2 extends StatelessWidget {
+class UpVoteOptionsNoLikes extends StatelessWidget {
   var imgurImage;
 
   int _views;
@@ -181,7 +173,7 @@ class UpVoteOptions2 extends StatelessWidget {
   // ignore: unused_field
   bool _isfav;
 
-  UpVoteOptions2(var input) {
+  UpVoteOptionsNoLikes(var input) {
     imgurImage = input;
     _views = imgurImage.views;
     _isfav = imgurImage.favorite;
@@ -220,7 +212,7 @@ class UpVoteOptions2 extends StatelessWidget {
                 ),
               ],
             ),
-            MyIconButton(),
+            FavButton(),
           ],
         ),
       ],
@@ -228,13 +220,13 @@ class UpVoteOptions2 extends StatelessWidget {
   }
 }
 
-class MyIconButton extends StatefulWidget {
-  MyIconButton({Key key}) : super(key: key);
+class FavButton extends StatefulWidget {
+  FavButton({Key key}) : super(key: key);
   @override
-  MyIconButtonState createState() => MyIconButtonState();
+  FavButtonState createState() => FavButtonState();
 }
 
-class MyIconButtonState extends State<StatefulWidget> {
+class FavButtonState extends State<StatefulWidget> {
   Color _iconColor = Colors.white;
   bool _isfav = false;
 

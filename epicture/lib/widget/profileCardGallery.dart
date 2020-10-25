@@ -41,7 +41,7 @@ class _ProfileCardGallery extends State<ProfileCardGallery> {
                 children: <Widget>[
                   for (var i in snapshot.data)
                     if (i.type == "image/png" || i.type == "image/jpeg")
-                      SimplePhotoView(i, false),
+                      SimplePhotoViewProfile(i),
                 ],
               );
         }

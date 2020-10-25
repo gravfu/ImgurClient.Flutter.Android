@@ -21,8 +21,6 @@ class _NavBar extends State<NavBar> {
 
   var resp;
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   List<Widget> _widgetOptions = <Widget>[
     PopularCardGallery(),
     SearchCart(),
