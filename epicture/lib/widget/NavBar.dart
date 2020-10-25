@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../popularCardGallery.dart';
+import '../profileCardGallery.dart';
 import 'ConnectImgur.dart';
 
 /// This is the stateful widget that the main application instantiates.
@@ -41,10 +42,7 @@ class _NavBar extends State<NavBar> {
       'Index 2: School',
       style: optionStyle,
     ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    ProfileCardGallery(),
   ];
   void _onItemTapped(int index) {
     setState(() {
