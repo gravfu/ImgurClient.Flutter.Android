@@ -1,3 +1,4 @@
+import 'package:epicture/pages/ConnectImgur.dart';
 import 'package:flutter/material.dart';
 import 'package:imgur/imgur.dart' as imgur;
 
@@ -28,7 +29,7 @@ class SimplePhotoViewProfile extends StatelessWidget {
           borderOnForeground: true,
           child: Column(
             children: <Widget>[
-              Text(imageNet.title),
+              if (imageNet.title != null) Text(imageNet.title),
               Image.network(
                 imageNet.link,
                 fit: BoxFit.fill,
@@ -156,7 +157,7 @@ class UpVoteOptionsLikes extends StatelessWidget {
                 ),
               ],
             ),
-            FavButton(),
+            FavButton(img: imgurImage),
           ],
         ),
       ],
@@ -212,7 +213,7 @@ class UpVoteOptionsNoLikes extends StatelessWidget {
                 ),
               ],
             ),
-            FavButton(),
+            FavButton2(img: imgurImage),
           ],
         ),
       ],
@@ -220,16 +221,22 @@ class UpVoteOptionsNoLikes extends StatelessWidget {
   }
 }
 
-class FavButton extends StatefulWidget {
-  FavButton({Key key}) : super(key: key);
+class FavButton2 extends StatefulWidget {
+  final imgur.Image img;
+  FavButton2({Key key, this.img}) : super(key: key);
   @override
-  FavButtonState createState() => FavButtonState();
+  FavButtonState2 createState() => FavButtonState2(this.img);
 }
 
-class FavButtonState extends State<StatefulWidget> {
+class FavButtonState2 extends State<StatefulWidget> {
   Color _iconColor = Colors.white;
   bool _isfav = false;
-
+  imgur.Image img;
+  FavButtonState2(imgur.Image input) {
+    this.img = input;
+    this._isfav = input.favorite;
+    if (_isfav) _iconColor = Colors.yellow;
+  }
   @override
   Widget build(BuildContext context) {
     return IconButton(
@@ -239,10 +246,57 @@ class FavButtonState extends State<StatefulWidget> {
         if (_isfav)
           setState(() {
             _iconColor = Colors.yellow;
+            clientID.image.favorite(
+              img.id,
+            );
           });
         if (!_isfav)
           setState(() {
             _iconColor = Colors.white;
+            clientID.image.favorite(
+              img.id,
+            );
+          });
+      },
+    );
+  }
+}
+
+class FavButton extends StatefulWidget {
+  final imgur.GalleryAlbumImage img;
+  FavButton({Key key, this.img}) : super(key: key);
+  @override
+  FavButtonState createState() => FavButtonState(this.img);
+}
+
+class FavButtonState extends State<StatefulWidget> {
+  Color _iconColor = Colors.white;
+  bool _isfav = false;
+  imgur.GalleryAlbumImage img;
+  FavButtonState(imgur.GalleryAlbumImage input) {
+    this.img = input;
+    this._isfav = input.favorite;
+    if (_isfav) _iconColor = Colors.yellow;
+  }
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.star, color: _iconColor),
+      onPressed: () {
+        _isfav = !_isfav;
+        if (_isfav)
+          setState(() {
+            _iconColor = Colors.yellow;
+            clientID.album.favorite(
+              img.id,
+            );
+          });
+        if (!_isfav)
+          setState(() {
+            _iconColor = Colors.white;
+            clientID.album.favorite(
+              img.id,
+            );
           });
       },
     );
