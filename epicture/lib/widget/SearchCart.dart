@@ -39,7 +39,8 @@ class SearchCart extends StatelessWidget {
                   ),
                 if (post.images != null &&
                     (post.images[0].type == "image/png" ||
-                        post.images[0].type == "image/jpeg"))
+                        post.images[0].type == "image/jpeg" ||
+                        post.images[0].type == "video/mp4"))
                   SimplePhotoViewAlbumGalleryImage(post),
               ]);
             },

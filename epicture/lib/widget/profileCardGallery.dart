@@ -40,7 +40,9 @@ class _ProfileCardGallery extends State<ProfileCardGallery> {
                 addAutomaticKeepAlives: true,
                 children: <Widget>[
                   for (var i in snapshot.data)
-                    if (i.type == "image/png" || i.type == "image/jpeg")
+                    if (i.type == "image/png" ||
+                        i.type == "image/jpeg" ||
+                        i.type == "video/mp4")
                       SimplePhotoViewProfile(i),
                 ],
               );

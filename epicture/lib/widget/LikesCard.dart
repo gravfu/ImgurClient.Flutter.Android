@@ -42,7 +42,8 @@ class _LikesCardGallery extends State<LikesCardGallery> {
                   for (var i in snapshot.data)
                     if (i.images != null &&
                         (i.images[0].type == "image/png" ||
-                            i.images[0].type == "image/jpeg"))
+                            i.images[0].type == "image/jpeg" ||
+                            i.images[0].type == "video/mp4"))
                       SimplePhotoViewAlbumGalleryImage(i)
                 ],
               );

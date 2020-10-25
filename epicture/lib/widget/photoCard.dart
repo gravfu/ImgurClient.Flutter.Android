@@ -29,11 +29,23 @@ class SimplePhotoViewProfile extends StatelessWidget {
           borderOnForeground: true,
           child: Column(
             children: <Widget>[
-              if (imageNet.title != null) Text(imageNet.title),
-              Image.network(
-                imageNet.link,
-                fit: BoxFit.fill,
-              ),
+              Padding(padding: EdgeInsets.all(4.0)),
+              if (imageNet.title != null)
+                Text(
+                  imageNet.title,
+                  style: TextStyle(color: Colors.white, fontFamily: "Ubuntu"),
+                ),
+              Padding(padding: EdgeInsets.all(6.0)),
+              if (imageNet.type != "video/mp4")
+                Image.network(
+                  imageNet.link,
+                  fit: BoxFit.fill,
+                ),
+              if (imageNet.type == "video/mp4")
+                Image.network(
+                  imageNet.gifv.substring(0, imageNet.gifv.length - 1),
+                  fit: BoxFit.fill,
+                ),
               UpVoteOptionsNoLikes(imageNet)
             ],
           ),
@@ -70,15 +82,23 @@ class SimplePhotoViewAlbumGalleryImage extends StatelessWidget {
           borderOnForeground: true,
           child: Column(
             children: <Widget>[
+              Padding(padding: EdgeInsets.all(4.0)),
               Text(
                 imageNet.title,
                 style: TextStyle(fontFamily: 'Ubuntu', color: Colors.white),
               ),
-              //Pad
-              Image.network(
-                imageNet.images[0].link,
-                fit: BoxFit.fill,
-              ),
+              Padding(padding: EdgeInsets.all(6.0)),
+              if (imageNet.images[0].type != "video/mp4")
+                Image.network(
+                  imageNet.images[0].link,
+                  fit: BoxFit.fill,
+                ),
+              if (imageNet.images[0].type == "video/mp4")
+                Image.network(
+                  imageNet.images[0].gifv
+                      .substring(0, imageNet.images[0].gifv.length - 1),
+                  fit: BoxFit.fill,
+                ),
               UpVoteOptionsLikes(imageNet),
             ],
           ),
