@@ -4,6 +4,7 @@ import '../widget/popularCardGallery.dart';
 import '../widget/profileCardGallery.dart';
 import '../widget/LikesCard.dart';
 import 'ConnectImgur.dart';
+import 'package:epicture/widget/UploadCart.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class NavBar extends StatefulWidget {
@@ -35,10 +36,7 @@ class _NavBar extends State<NavBar> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   List<Widget> _widgetOptions = <Widget>[
     PopularCardGallery(),
-    Text(
-      'Index 2: Search',
-      style: optionStyle,
-    ),
+    UploadPage(),
     if (kReleaseMode)
       Text(
         'Index 2: Upload',

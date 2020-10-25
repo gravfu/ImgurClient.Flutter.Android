@@ -40,7 +40,9 @@ class _PopularCardGallery extends State<PopularCardGallery> {
                 addAutomaticKeepAlives: true,
                 children: <Widget>[
                   for (var i in snapshot.data)
-                    if (i.images != null && i.images[0].type == "image/png")
+                    if (i.images != null &&
+                        (i.images[0].type == "image/png" ||
+                            i.images[0].type == "image/jpeg"))
                       SimplePhotoView(i.images[0], false)
                 ],
               );
