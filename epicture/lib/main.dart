@@ -1,5 +1,5 @@
-import 'FrontPage.dart';
-import 'widget/ConnectImgur.dart';
+import 'pages/FrontPage.dart';
+//import 'pages/ConnectImgur.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
-      home: ConnectApp(),
+      home: Home(),
     );
   }
 }

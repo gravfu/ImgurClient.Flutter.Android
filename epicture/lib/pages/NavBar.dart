@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../popularCardGallery.dart';
-import '../profileCardGallery.dart';
+import '../widget/popularCardGallery.dart';
+import '../widget/profileCardGallery.dart';
 import 'ConnectImgur.dart';
 
 /// This is the stateful widget that the main application instantiates.
