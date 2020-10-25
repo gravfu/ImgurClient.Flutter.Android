@@ -26,16 +26,28 @@ class _LikesCardGallery extends State<LikesCardGallery> {
             if (snapshot.hasError)
               return new Text('Error: ${snapshot.error}');
             else
-              return ListView(
-                scrollDirection: Axis.vertical,
-                addAutomaticKeepAlives: true,
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  for (var i in snapshot.data)
-                    if (i.images != null &&
-                        (i.images[0].type == "image/png" ||
-                            i.images[0].type == "image/jpeg" ||
-                            i.images[0].type == "video/mp4"))
-                      SimplePhotoViewAlbumGalleryImage(i)
+                  AppBar(
+                    title: Text("Favorites",
+                        style: TextStyle(fontFamily: 'Ubuntu')),
+                    backgroundColor: Colors.blueGrey,
+                  ),
+                  new Expanded(
+                    child: ListView(
+                      scrollDirection: Axis.vertical,
+                      addAutomaticKeepAlives: true,
+                      children: <Widget>[
+                        for (var i in snapshot.data)
+                          if (i.images != null &&
+                              (i.images[0].type == "image/png" ||
+                                  i.images[0].type == "image/jpeg" ||
+                                  i.images[0].type == "video/mp4"))
+                            SimplePhotoViewAlbumGalleryImage(i)
+                      ],
+                    ),
+                  ),
                 ],
               );
         }

@@ -20,9 +20,7 @@ class _UploadPage extends State<UploadPage> {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
         clientID.image.uploadImage(
-            imagePath: pickedFile.path,
-            title: 'Blabla',
-            description: 'A description');
+            imagePath: pickedFile.path, title: '', description: '');
       } else {
         print('No image selected.');
       }
@@ -33,12 +31,15 @@ class _UploadPage extends State<UploadPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Image Picker Example'),
+        title: Text('Upload'),
         backgroundColor: Colors.blueGrey,
       ),
       backgroundColor: Colors.grey[850],
       body: Center(
-        child: _image == null ? Text('No image selected.') : Image.file(_image),
+        child: _image == null
+            ? Text('No image selected.')
+            : Text('Upload Successful',
+                style: TextStyle(fontFamily: 'Ubuntu', color: Colors.green)),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: getImage,
