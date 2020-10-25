@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-//import 'package:flutter/foundation.dart';
 
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -57,7 +56,8 @@ class _MyAppState extends State<ConnectApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Material(
+      type: MaterialType.transparency,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

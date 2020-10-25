@@ -1,12 +1,3 @@
-/// Flutter code sample for FutureBuilder
-// @dart = 2.9
-
-// This sample shows a [FutureBuilder] that displays a loading spinner while it
-// loads data. It displays a success icon and text if the [Future] completes
-// with a result, or an error icon and text if the [Future] completes with an
-// error. Assume the `_calculation` field is set by pressing a button elsewhere
-// in the UI.
-
 import 'package:epicture/widget/photoCard.dart';
 import 'package:flutter/material.dart';
 import 'package:imgur/imgur.dart' as imgur;
@@ -35,16 +26,28 @@ class _LikesCardGallery extends State<LikesCardGallery> {
             if (snapshot.hasError)
               return new Text('Error: ${snapshot.error}');
             else
-              return ListView(
-                scrollDirection: Axis.vertical,
-                addAutomaticKeepAlives: true,
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  for (var i in snapshot.data)
-                    if (i.images != null &&
-                        (i.images[0].type == "image/png" ||
-                            i.images[0].type == "image/jpeg" ||
-                            i.images[0].type == "video/mp4"))
-                      SimplePhotoViewAlbumGalleryImage(i)
+                  AppBar(
+                    title: Text("Favorites",
+                        style: TextStyle(fontFamily: 'Ubuntu')),
+                    backgroundColor: Colors.blueGrey,
+                  ),
+                  new Expanded(
+                    child: ListView(
+                      scrollDirection: Axis.vertical,
+                      addAutomaticKeepAlives: true,
+                      children: <Widget>[
+                        for (var i in snapshot.data)
+                          if (i.images != null &&
+                              (i.images[0].type == "image/png" ||
+                                  i.images[0].type == "image/jpeg" ||
+                                  i.images[0].type == "video/mp4"))
+                            SimplePhotoViewAlbumGalleryImage(i)
+                      ],
+                    ),
+                  ),
                 ],
               );
         }
