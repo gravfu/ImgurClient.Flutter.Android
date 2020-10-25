@@ -31,6 +31,12 @@ All of those widgets use photoCard.dart. It is use for showing pictures from ima
 ## Download:
  + https://github.com/EpitechIT2020/B-DEV-501-PAR-5-1-epicture-baptiste.godeau/actions
 
+## Build:
+```shell
+cd epicture
+flutter build apk --split-per-abi
+```
+
 ## Authors:
 Baptiste Godeau (baptiste.godeau@epitech.eu)
 Vincent DOUROUX (vincent.douroux@epitech.eu)
