@@ -30,28 +30,17 @@ class _MyAppState extends State<ConnectApp> {
       'client_id': _clientID,
       'redirect_uri': _callbackUrlScheme,
     });
-    String accessToken = "";
-
     try {
       final result = await FlutterWebAuth.authenticate(
           url: url.toString(), callbackUrlScheme: 'com.example.epicture');
       setState(() {
         var resul2 = result.replaceAll('#', '?');
-        _status = 'Got result: $resul2';
         var uri = Uri.parse(resul2);
-        uri.queryParameters.forEach((k, v) {
-          _status += '\nkey: $k - value: $v';
-        });
-        accessToken = uri.queryParameters['access_token'];
-        debugPrint(accessToken);
-        debugPrint('Got token and applying to authTokenvar:');
-        authTokenvar = accessToken;
-        debugPrint(authTokenvar);
-        _status +=
-            '\n\nGot access token: ${uri.queryParameters['access_token']}';
+        authTokenvar = uri.queryParameters['access_token'];
         if ((uri.queryParameters['access_token'].isNotEmpty)) {
           isAuthentified = true;
           clientID = imgur.Imgur(imgur.Authentication.fromToken(authTokenvar));
+          Navigator.of(context).pushReplacementNamed('/home');
         }
       });
     } on PlatformException catch (e) {
@@ -59,13 +48,6 @@ class _MyAppState extends State<ConnectApp> {
         _status = 'Got error: $e';
       });
     }
-    final client = imgur.Imgur(imgur.Authentication.fromToken(accessToken));
-    List resp = await client.gallery.list(section: imgur.Section.hot);
-
-    resp.forEach((element) {
-      print(element.link);
-    });
-    print("test");
   }
 
   @override
