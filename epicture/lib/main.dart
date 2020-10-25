@@ -25,6 +25,7 @@ void main() async {
   runApp(new MaterialApp(
     title: 'App',
     home: _defaultHome,
+    debugShowCheckedModeBanner: false,
     routes: <String, WidgetBuilder>{
       // Set routes for using the Navigator.
       '/home': (BuildContext context) => new NavBar(),

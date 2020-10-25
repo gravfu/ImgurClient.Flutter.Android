@@ -75,7 +75,7 @@ class SimplePhotoViewAlbumGalleryImage extends StatelessWidget {
             children: <Widget>[
               Text(imageNet.title),
               Image.network(
-                imageNet.link,
+                imageNet.images[0].link,
                 fit: BoxFit.fill,
               ),
               UpVoteOptions(imageNet),

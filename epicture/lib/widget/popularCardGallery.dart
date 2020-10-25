@@ -43,7 +43,7 @@ class _PopularCardGallery extends State<PopularCardGallery> {
                     if (i.images != null &&
                         (i.images[0].type == "image/png" ||
                             i.images[0].type == "image/jpeg"))
-                      SimplePhotoView(i.images[0], false)
+                      SimplePhotoViewAlbumGalleryImage(i)
                 ],
               );
         }

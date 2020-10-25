@@ -40,7 +40,7 @@ class SearchCart extends StatelessWidget {
                 if (post.images != null &&
                     (post.images[0].type == "image/png" ||
                         post.images[0].type == "image/jpeg"))
-                  SimplePhotoView(post.images[0], true),
+                  SimplePhotoViewAlbumGalleryImage(post),
               ]);
             },
           ),
