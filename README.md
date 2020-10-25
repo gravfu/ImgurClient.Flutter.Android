@@ -21,7 +21,7 @@ We have 5 widgets launched by the Navbar (on epicture/lib/widget):
 - SearchCart.dart
 - LikesCard.dart
 
-All of those widgets use photoCard.dart. It is use for showing pictures from imagur.
+All of those widgets use photoCard.dart. It is used for showing pictures from imgur.
 
 ## Links:
  + Epitech: http://epitech.fr/

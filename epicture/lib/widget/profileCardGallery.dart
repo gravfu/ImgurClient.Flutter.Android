@@ -48,6 +48,7 @@ class _ProfileCardGallery extends State<ProfileCardGallery> {
                         },
                         child: Column(
                           children: [
+                            Padding(padding: EdgeInsets.all(4.0)),
                             Icon(Icons.account_circle_sharp),
                             Text('Log out'),
                           ],
