@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../widget/popularCardGallery.dart';
 import '../widget/profileCardGallery.dart';
@@ -38,7 +39,12 @@ class _NavBar extends State<NavBar> {
       'Index 2: Search',
       style: optionStyle,
     ),
-    ConnectApp(),
+    if (kReleaseMode)
+      Text(
+        'Index 2: Upload',
+        style: optionStyle,
+      ),
+    if (!kReleaseMode) ConnectApp(),
     LikesCardGallery(),
     ProfileCardGallery(),
   ];
