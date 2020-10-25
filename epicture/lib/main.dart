@@ -1,7 +1,7 @@
-/*import 'pages/FrontPage.dart';
-//import 'pages/ConnectImgur.dart';
+import 'pages/NavBar.dart';
+import 'pages/ConnectImgur.dart';
 import 'package:flutter/material.dart';
-void main() => runApp(MyApp());
+import 'package:flutter/foundation.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -12,28 +12,27 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
-      home: Home(),
+      home: NavBar(),
     );
   }
 }
-*/
-
-import 'package:epicture/pages/ConnectImgur.dart';
-import 'pages/NavBar.dart';
-import 'package:flutter/material.dart';
 
 void main() async {
-  // Set default home.
-  Widget _defaultHome = new ConnectApp();
+  if (kReleaseMode) {
+    // Set default home.
+    Widget _defaultHome = new ConnectApp();
 
-  // Run app!
-  runApp(new MaterialApp(
-    title: 'App',
-    home: _defaultHome,
-    routes: <String, WidgetBuilder>{
-      // Set routes for using the Navigator.
-      '/home': (BuildContext context) => new NavBar(),
-      '/login': (BuildContext context) => new ConnectApp()
-    },
-  ));
+    // Run app!
+    runApp(new MaterialApp(
+      title: 'App',
+      home: _defaultHome,
+      routes: <String, WidgetBuilder>{
+        // Set routes for using the Navigator.
+        '/home': (BuildContext context) => new NavBar(),
+        '/login': (BuildContext context) => new ConnectApp()
+      },
+    ));
+  } else {
+    runApp(MyApp());
+  }
 }

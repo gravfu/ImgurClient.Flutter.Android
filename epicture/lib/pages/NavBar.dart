@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widget/popularCardGallery.dart';
 import '../widget/profileCardGallery.dart';
+import '../widget/LikesCard.dart';
 import 'ConnectImgur.dart';
 
 /// This is the stateful widget that the main application instantiates.
@@ -33,15 +34,12 @@ class _NavBar extends State<NavBar> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   List<Widget> _widgetOptions = <Widget>[
     PopularCardGallery(),
+    Text(
+      'Index 2: Search',
+      style: optionStyle,
+    ),
     ConnectApp(),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    LikesCardGallery(),
     ProfileCardGallery(),
   ];
   void _onItemTapped(int index) {

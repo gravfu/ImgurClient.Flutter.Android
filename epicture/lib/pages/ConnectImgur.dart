@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 
@@ -40,7 +41,7 @@ class _MyAppState extends State<ConnectApp> {
         if ((uri.queryParameters['access_token'].isNotEmpty)) {
           isAuthentified = true;
           clientID = imgur.Imgur(imgur.Authentication.fromToken(authTokenvar));
-          Navigator.of(context).pushReplacementNamed('/home');
+          if (kReleaseMode) Navigator.of(context).pushReplacementNamed('/home');
         }
       });
     } on PlatformException catch (e) {
