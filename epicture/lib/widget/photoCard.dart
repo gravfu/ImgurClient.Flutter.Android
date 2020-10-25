@@ -111,23 +111,10 @@ class SimplePhotoViewAlbumGalleryImage extends StatelessWidget {
 // ignore: must_be_immutable
 class UpVoteOptionsLikes extends StatelessWidget {
   var imgurImage;
-  int upvotes;
-  int downvotes;
   int views;
-  //bool _isupvoted = false;
-  //bool _isdownvoted = false;
-  // ignore: unused_field
-  bool _isfav;
 
   UpVoteOptionsLikes(var input) {
     this.imgurImage = input;
-    this.upvotes = input.ups;
-    this.downvotes = input.downs;
-    this._isfav = imgurImage.favorite;
-    if (upvotes == null) upvotes = 0;
-    if (downvotes == null) downvotes = 0;
-    debugPrint('Image upvotes:');
-    debugPrint(upvotes.toString());
   }
 
   @override
@@ -137,46 +124,8 @@ class UpVoteOptionsLikes extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Row(
-              children: [
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_upward_rounded,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    //_isupvoted = true;
-                    //_isdownvoted = false;
-                    debugPrint('Upvoted');
-                  },
-                ),
-                Text(
-                  upvotes.toString(),
-                  style: TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_downward_rounded,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    //_isupvoted = false;
-                    //_isdownvoted = true;
-                    debugPrint('Downvoted');
-                  },
-                ),
-                Text(
-                  downvotes.toString(),
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
+            UpvoteButton(img: imgurImage),
+            DownvoteButton(img: imgurImage),
             FavButton(img: imgurImage),
           ],
         ),
@@ -319,6 +268,130 @@ class FavButtonState extends State<StatefulWidget> {
             );
           });
       },
+    );
+  }
+}
+
+class UpvoteButton extends StatefulWidget {
+  final imgur.GalleryAlbumImage img;
+  UpvoteButton({Key key, this.img}) : super(key: key);
+  @override
+  UpvoteButtonState createState() => UpvoteButtonState(this.img);
+}
+
+class UpvoteButtonState extends State<StatefulWidget> {
+  Color _iconColor = Colors.white;
+  bool _isupvoted = false;
+  int plusone = 0;
+  imgur.GalleryAlbumImage img;
+
+  UpvoteButtonState(imgur.GalleryAlbumImage input) {
+    this.img = input;
+    this._isupvoted = (img.vote == imgur.VoteType.up);
+    if (_isupvoted) {
+      _iconColor = Colors.lightGreen;
+      plusone = 1;
+    }
+  }
+
+  String stringyfy(int input) {
+    String result = input.toString();
+    if (input > 999) {
+      result = result.substring(0, result.length - 3);
+      result += 'k';
+    }
+    return result;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        IconButton(
+          icon: Icon(Icons.arrow_upward_rounded, color: _iconColor),
+          onPressed: () {
+            _isupvoted = !_isupvoted;
+            if (_isupvoted)
+              setState(() {
+                _iconColor = Colors.lightGreen;
+                plusone += 1;
+                clientID.album.vote(img.id, imgur.VoteType.up);
+              });
+            if (!_isupvoted)
+              setState(() {
+                _iconColor = Colors.white;
+                plusone -= 1;
+                clientID.album.vote(img.id, imgur.VoteType.veto);
+              });
+          },
+        ),
+        Text(
+          stringyfy(img.ups + plusone),
+          style: TextStyle(color: _iconColor),
+        ),
+      ],
+    );
+  }
+}
+
+class DownvoteButton extends StatefulWidget {
+  final imgur.GalleryAlbumImage img;
+  DownvoteButton({Key key, this.img}) : super(key: key);
+  @override
+  DownvoteButtonState createState() => DownvoteButtonState(this.img);
+}
+
+class DownvoteButtonState extends State<StatefulWidget> {
+  Color _iconColor = Colors.white;
+  bool _isdownvoted = false;
+  int plusone = 0;
+  imgur.GalleryAlbumImage img;
+
+  DownvoteButtonState(imgur.GalleryAlbumImage input) {
+    this.img = input;
+    this._isdownvoted = (img.vote == imgur.VoteType.down);
+    if (_isdownvoted) {
+      _iconColor = Colors.red;
+      plusone = -1;
+    }
+  }
+
+  String stringyfy(int input) {
+    String result = input.toString();
+    if (input > 999) {
+      result = result.substring(0, result.length - 3);
+      result += 'k';
+    }
+    return result;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        IconButton(
+          icon: Icon(Icons.arrow_downward_rounded, color: _iconColor),
+          onPressed: () {
+            _isdownvoted = !_isdownvoted;
+            if (_isdownvoted)
+              setState(() {
+                _iconColor = Colors.red;
+                plusone -= 1;
+                clientID.album.vote(img.id, imgur.VoteType.down);
+              });
+            if (!_isdownvoted)
+              setState(() {
+                _iconColor = Colors.white;
+                plusone += 1;
+                clientID.album.vote(img.id, imgur.VoteType.veto);
+              });
+          },
+        ),
+        Text(
+          stringyfy(img.downs + plusone),
+          style: TextStyle(color: _iconColor),
+        ),
+      ],
     );
   }
 }
