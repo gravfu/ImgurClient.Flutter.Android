@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 //import 'package:flutter/foundation.dart';
 
 import 'package:flutter_web_auth/flutter_web_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:imgur/imgur.dart' as imgur;
 
@@ -32,6 +33,7 @@ class _MyAppState extends State<ConnectApp> {
       'client_id': _clientID,
       'redirect_uri': _callbackUrlScheme,
     });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
       final result = await FlutterWebAuth.authenticate(
           url: url.toString(), callbackUrlScheme: 'com.example.epicture');
@@ -42,6 +44,7 @@ class _MyAppState extends State<ConnectApp> {
         if ((uri.queryParameters['access_token'].isNotEmpty)) {
           isAuthentified = true;
           clientID = imgur.Imgur(imgur.Authentication.fromToken(authTokenvar));
+          prefs.setString("clientID", authTokenvar);
           Navigator.of(context).pushReplacementNamed('/home');
         }
       });

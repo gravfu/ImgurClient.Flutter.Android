@@ -1,6 +1,9 @@
 import 'pages/NavBar.dart';
 import 'pages/ConnectImgur.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:imgur/imgur.dart' as imgur;
+
 //import 'package:flutter/foundation.dart';
 
 class MyApp extends StatelessWidget {
@@ -19,7 +22,17 @@ class MyApp extends StatelessWidget {
 
 void main() async {
   // Set default home.
-  Widget _defaultHome = new ConnectApp();
+  WidgetsFlutterBinding.ensureInitialized();
+  Widget _defaultHome;
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  if (prefs.getString("clientID") != null &&
+      prefs.getString("clientID") != "") {
+    _defaultHome = new NavBar();
+    authTokenvar = prefs.getString("clientID");
+    clientID = imgur.Imgur(imgur.Authentication.fromToken(authTokenvar));
+  } else {
+    _defaultHome = new ConnectApp();
+  }
 
   // Run app!
   runApp(new MaterialApp(
