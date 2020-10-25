@@ -60,10 +60,12 @@ class _MyAppState extends State<ConnectApp> {
       });
     }
     final client = imgur.Imgur(imgur.Authentication.fromToken(accessToken));
-    List resp = await client.account.getImages();
+    List resp = await client.gallery.list(section: imgur.Section.hot);
+
     resp.forEach((element) {
-      _status += "\n " + element.link;
+      print(element.link);
     });
+    print("test");
   }
 
   @override

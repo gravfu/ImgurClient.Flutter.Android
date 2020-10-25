@@ -18,26 +18,14 @@ class ScrollCardGallery extends StatefulWidget {
   @override
   _ScrollCardGallery createState() => _ScrollCardGallery();
 }
-/*
-List<Image> getImgurImages() async {
-  debugPrint("Fetching images with token : ");
-  debugPrint(authTokenvar);
-  List imageNetList = await client.account.getImages();
-  //imageNetList.forEach((element) {
-  //print(element.link.toString());
-  //});
-  debugPrint('Successfully got Images');
-  return imageNetList;
-}
-*/
 
-/// This is the private State class that goes with MyStatefulWidget.
+/// This is the private State class that goes with ScrollCardGallery.
 class _ScrollCardGallery extends State<ScrollCardGallery> {
   Widget build(BuildContext context) {
-    return FutureBuilder<List<imgur.Image>>(
-      future: clientID.account.getImages(),
-      builder:
-          (BuildContext context, AsyncSnapshot<List<imgur.Image>> snapshot) {
+    return FutureBuilder<List<imgur.GalleryAlbumImage>>(
+      future: clientID.gallery.list(section: imgur.Section.hot),
+      builder: (BuildContext context,
+          AsyncSnapshot<List<imgur.GalleryAlbumImage>> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
           case ConnectionState.waiting:
@@ -50,20 +38,14 @@ class _ScrollCardGallery extends State<ScrollCardGallery> {
                 scrollDirection: Axis.vertical,
                 addAutomaticKeepAlives: true,
                 children: <Widget>[
-                  for (var i in snapshot.data) SimplePhotoView(i),
+                  for (var i in snapshot.data)
+                    if (i.images != null && i.images[0].type == "image/png")
+                      SimplePhotoView(i.images[0])
                 ],
               );
         }
       },
     );
-    /*
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Home Page"),
-      ),
-      body: futureBuilder,
-    );
-    */
   }
 }
 
