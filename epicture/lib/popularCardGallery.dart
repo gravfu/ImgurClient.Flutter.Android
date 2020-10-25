@@ -12,15 +12,15 @@ import 'package:imgur/imgur.dart' as imgur;
 import 'widget/ConnectImgur.dart';
 
 /// This is the stateful widget that the main application instantiates.
-class ScrollCardGallery extends StatefulWidget {
-  ScrollCardGallery({Key key}) : super(key: key);
+class PopularCardGallery extends StatefulWidget {
+  PopularCardGallery({Key key}) : super(key: key);
 
   @override
-  _ScrollCardGallery createState() => _ScrollCardGallery();
+  _PopularCardGallery createState() => _PopularCardGallery();
 }
 
 /// This is the private State class that goes with ScrollCardGallery.
-class _ScrollCardGallery extends State<ScrollCardGallery> {
+class _PopularCardGallery extends State<PopularCardGallery> {
   Widget build(BuildContext context) {
     return FutureBuilder<List<imgur.GalleryAlbumImage>>(
       future: clientID.gallery.list(section: imgur.Section.hot),
@@ -40,7 +40,7 @@ class _ScrollCardGallery extends State<ScrollCardGallery> {
                 children: <Widget>[
                   for (var i in snapshot.data)
                     if (i.images != null && i.images[0].type == "image/png")
-                      SimplePhotoView(i.images[0])
+                      PopularSimplePhotoView(i.images[0])
                 ],
               );
         }
@@ -50,11 +50,11 @@ class _ScrollCardGallery extends State<ScrollCardGallery> {
 }
 
 // ignore: must_be_immutable
-class SimplePhotoView extends StatelessWidget {
+class PopularSimplePhotoView extends StatelessWidget {
   int index = 0;
   var imageNet;
 
-  SimplePhotoView(var input) {
+  PopularSimplePhotoView(var input) {
     this.imageNet = input;
     debugPrint("Loaded one Image");
   }
@@ -81,7 +81,7 @@ class SimplePhotoView extends StatelessWidget {
                 imageNet.link,
                 fit: BoxFit.fill,
               ),
-              UpVoteOptions(),
+              PopularUpVoteOptions(),
             ],
           ),
         ),
@@ -90,7 +90,7 @@ class SimplePhotoView extends StatelessWidget {
   }
 }
 
-class UpVoteOptions extends StatelessWidget {
+class PopularUpVoteOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
