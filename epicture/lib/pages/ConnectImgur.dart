@@ -56,16 +56,40 @@ class _MyAppState extends State<ConnectApp> {
     return Center(
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text('Status: $_status\n'),
-            const SizedBox(height: 80),
-            RaisedButton(
-              child: Text('Authenticate'),
-              onPressed: () {
-                this.authenticate();
-              },
+            AppBar(
+              title: Text("Login Page"),
+              backgroundColor: Colors.blueGrey,
             ),
+            Icon(Icons.account_box_outlined),
+            Text(
+              'You are not logged in :',
+              style: TextStyle(color: Colors.white),
+            ),
+            const SizedBox(height: 80),
+            Card(
+              color: Colors.teal[400],
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  TextButton(
+                    child: Text(
+                      'Log In',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w200,
+                      ),
+                    ),
+                    onPressed: () {
+                      this.authenticate();
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Padding(padding: EdgeInsets.all(16.0)),
           ],
         ),
       ),
