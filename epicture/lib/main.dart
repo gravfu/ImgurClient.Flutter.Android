@@ -18,21 +18,17 @@ class MyApp extends StatelessWidget {
 }
 
 void main() async {
-  if (kReleaseMode) {
-    // Set default home.
-    Widget _defaultHome = new ConnectApp();
+  // Set default home.
+  Widget _defaultHome = new ConnectApp();
 
-    // Run app!
-    runApp(new MaterialApp(
-      title: 'App',
-      home: _defaultHome,
-      routes: <String, WidgetBuilder>{
-        // Set routes for using the Navigator.
-        '/home': (BuildContext context) => new NavBar(),
-        '/login': (BuildContext context) => new ConnectApp()
-      },
-    ));
-  } else {
-    runApp(MyApp());
-  }
+  // Run app!
+  runApp(new MaterialApp(
+    title: 'App',
+    home: _defaultHome,
+    routes: <String, WidgetBuilder>{
+      // Set routes for using the Navigator.
+      '/home': (BuildContext context) => new NavBar(),
+      '/login': (BuildContext context) => new ConnectApp()
+    },
+  ));
 }

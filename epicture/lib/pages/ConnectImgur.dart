@@ -41,7 +41,7 @@ class _MyAppState extends State<ConnectApp> {
         if ((uri.queryParameters['access_token'].isNotEmpty)) {
           isAuthentified = true;
           clientID = imgur.Imgur(imgur.Authentication.fromToken(authTokenvar));
-          if (kReleaseMode) Navigator.of(context).pushReplacementNamed('/home');
+          Navigator.of(context).pushReplacementNamed('/home');
         }
       });
     } on PlatformException catch (e) {

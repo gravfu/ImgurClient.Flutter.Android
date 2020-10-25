@@ -14,19 +14,7 @@ class NavBar extends StatefulWidget {
   _NavBar createState() => _NavBar();
 }
 
-var hardCodedURLTestList = [
-  'https://i.imgur.com/RUPWLeZ.png',
-  'https://i.imgur.com/gSPz2ZM.jpg',
-  'https://i.imgur.com/zpcsV3b.jpg',
-];
-
-var hardCodedIDsTestList = [
-  'RUPWLeZ',
-  'gSPz2ZM',
-  'zpcsV3b',
-];
-
-/// This is the private State class that goes with MyStatefulWidget.
+// This is the private State class that goes with MyStatefulWidget.
 class _NavBar extends State<NavBar> {
   int _selectedIndex = 0;
 
@@ -36,15 +24,14 @@ class _NavBar extends State<NavBar> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   List<Widget> _widgetOptions = <Widget>[
     PopularCardGallery(),
+    Text(
+      'Index 2: Searsh',
+      style: optionStyle,
+    ),
     UploadPage(),
-    if (kReleaseMode)
-      Text(
-        'Index 2: Upload',
-        style: optionStyle,
-      ),
-    if (!kReleaseMode) ConnectApp(),
     LikesCardGallery(),
     ProfileCardGallery(),
+    if (!kReleaseMode) ConnectApp(),
   ];
   void _onItemTapped(int index) {
     setState(() {
