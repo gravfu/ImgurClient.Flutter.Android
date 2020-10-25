@@ -30,17 +30,10 @@ class SearchCart extends StatelessWidget {
                 if (post.images != null &&
                     (post.images[0].type == "image/png" ||
                         post.images[0].type == "image/jpeg"))
-                  Card(
-                    child: Text(
-                      post.title,
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    //subtitle: Text(post.images[0].link),
-                  ),
-                if (post.images != null &&
-                    (post.images[0].type == "image/png" ||
-                        post.images[0].type == "image/jpeg"))
-                  SimplePhotoViewAlbumGalleryImage(post),
+                  if (post.images != null &&
+                      (post.images[0].type == "image/png" ||
+                          post.images[0].type == "image/jpeg"))
+                    SimplePhotoViewAlbumGalleryImage(post),
               ]);
             },
           ),
