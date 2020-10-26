@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../pages/ConnectImgur.dart';
 
+final controller1 = TextEditingController();
+final controller2 = TextEditingController();
+
 class UploadPage extends StatefulWidget {
   @override
   _UploadPage createState() => _UploadPage();
@@ -11,6 +14,7 @@ class UploadPage extends StatefulWidget {
 
 class _UploadPage extends State<UploadPage> {
   File _image;
+  var _path;
   final picker = ImagePicker();
 
   Future getImage() async {
@@ -19,10 +23,20 @@ class _UploadPage extends State<UploadPage> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
-        clientID.image.uploadImage(
-            imagePath: pickedFile.path, title: '', description: '');
-      } else {
-        print('No image selected.');
+        _path = pickedFile.path;
+        print('Image selected');
+      }
+    });
+  }
+
+  Future getCameraImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+        _path = pickedFile.path;
+        print('Image selected');
       }
     });
   }
@@ -38,21 +52,76 @@ class _UploadPage extends State<UploadPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Center(
-            child: _image == null
-                ? Text('No image selected.')
-                : Text('Upload Successful',
-                    style:
-                        TextStyle(fontFamily: 'Ubuntu', color: Colors.green)),
-          ),
           MyCustomForm(),
+          FlatButton(
+            onPressed: getImage,
+            child: Card(
+              color: Colors.blue,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.add_photo_alternate),
+                  Text(
+                    'Pick Image',
+                    style: TextStyle(
+                      fontFamily: 'Ubuntu',
+                      color: Colors.black,
+                      fontSize: 25,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          FlatButton(
+            onPressed: getCameraImage,
+            child: Card(
+              color: Colors.blue,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.photo_camera),
+                  Text(
+                    'Take Picture',
+                    style: TextStyle(
+                      fontFamily: 'Ubuntu',
+                      color: Colors.black,
+                      fontSize: 25,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.5,
+            child: _image == null
+                ? Text(
+                    '',
+                    style: TextStyle(
+                      fontFamily: 'Ubuntu',
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  )
+                : Container(
+                    child: Image.file(_image),
+                  ),
+          ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: getImage,
-        tooltip: 'Pick Image',
-        child: Icon(Icons.add_a_photo),
-      ),
+      floatingActionButton: (_image != null)
+          ? FloatingActionButton(
+              onPressed: () {
+                clientID.image.uploadImage(
+                    imagePath: _path,
+                    title: controller1.text,
+                    description: controller2.text);
+              },
+              tooltip: 'Pick Image',
+              child: Icon(Icons.file_upload),
+            )
+          : Text(''),
     );
   }
 }
@@ -77,63 +146,51 @@ class MyCustomFormState extends State<MyCustomForm> {
 
   @override
   Widget build(BuildContext context) {
-    final Controller1 = TextEditingController();
-    final Controller2 = TextEditingController();
-
-    @override
-    void dispose() {
-      Controller1.dispose();
-      Controller2.dispose();
-      super.dispose();
-    }
-
     // Build a Form widget using the _formKey created above.
     return Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          TextFormField(
-            controller: Controller1,
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'No Title';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            style: TextStyle(color: Colors.red),
-            controller: Controller2,
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'No Description';
-              }
-              return null;
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: FlatButton(
-              onPressed: () {
-                // Validate returns true if the form is valid, or false
-                // otherwise.
-                if (_formKey.currentState.validate()) {
-                  // If the form is valid, display a Snackbar.
-                  Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text('Uploading...')));
-                }
-              },
-              color: Colors.white60,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(padding: EdgeInsets.all(4.0)),
-                  Text('Upload', style: TextStyle(fontFamily: 'Ubuntu'))
-                ],
+          Card(
+            color: Colors.grey,
+            child: TextFormField(
+              decoration: InputDecoration(
+                hintText: 'Title',
+                hintStyle: TextStyle(
+                  fontFamily: 'Ubuntu',
+                  fontSize: 20,
+                ),
               ),
+              controller: controller1,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'No Title';
+                }
+                return null;
+              },
             ),
           ),
+          Card(
+            color: Colors.grey,
+            child: TextFormField(
+              decoration: InputDecoration(
+                hintText: 'Description',
+                hintStyle: TextStyle(
+                  fontFamily: 'Ubuntu',
+                  fontSize: 20,
+                ),
+              ),
+              controller: controller2,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'No Description';
+                }
+                return null;
+              },
+            ),
+          ),
+          Padding(padding: EdgeInsets.all(5.0)),
         ],
       ),
     );
