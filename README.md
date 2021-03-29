@@ -10,9 +10,6 @@ This controler is use for:
 - Login page (epicture/lib/pages/ConnectImgur.dart)
 - Main App (epicture/lib/pages/NavBar.dart)
 
-
-![image info](https://miro.medium.com/max/461/1*5XG6ZphDliv3YRnS-GASLA.png)
-
 After login, the user is redirected in the Main App.
 
 We have 5 widgets launched by the Navbar (on epicture/lib/widget):
